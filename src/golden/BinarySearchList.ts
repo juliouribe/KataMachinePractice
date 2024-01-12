@@ -6,7 +6,12 @@ export default function bs_list(haystack: number[], needle: number): boolean {
   let high = haystack.length;
 
   do {
-    const mid = Math.floor(low + (high - low)/2);
+    /*
+      Mid point is defined as the low (relative starting index) plus the offset.
+      Low can change through the search. The (high-low)/2 is the offset relative
+      to where the current start and ends are.
+    */
+    const mid = Math.floor(low + (high-low)/2);
     const value = haystack[mid];
     if (value === needle) {
       return true;
