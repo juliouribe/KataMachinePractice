@@ -1,32 +1,31 @@
 function qs(arr: number[], lo: number, hi: number): void {
-  // Base case
+  // Base Case
   if (lo >= hi) {
-    return;
+     return;
   }
 
-  const partitionIdx = partition(arr, lo, hi);
-  qs(arr, lo, partitionIdx - 1);
-  qs(arr, partitionIdx + 1, hi);
+  const pivotIdx = partition(arr, lo, hi);
+  qs(arr, lo, pivotIdx - 1);
+  qs(arr, pivotIdx + 1, hi);
 }
 
 function partition(arr: number[], lo: number, hi: number): number {
-  // Take a pivot point and put everything smaller than it to the left.
   const pivot = arr[hi];
   let idx = lo - 1;
+  // i is the value we are incrementing to compare against pivot.
+  // idx is the position to swap to if we find something larger than the pivot.
   for (let i = lo; i < hi; i++) {
-    // If an element is smaller than the pivot, move it to the left of the pivot
-    if (arr[i] < pivot) {
+    if (arr[i] <= pivot) {
       idx++;
       const tmp = arr[i];
       arr[i] = arr[idx];
       arr[idx] = tmp;
     }
   }
-  // Move the pivot element to end of the smaller elements using idx pointer.
+  // Need to swap pivot to end of elements smaller than the pivot using the idx.
   idx++;
   arr[hi] = arr[idx];
-  arr[idx] = pivot
-
+  arr[idx] = pivot;
   return idx;
 }
 
