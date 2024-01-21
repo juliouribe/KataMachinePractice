@@ -1,12 +1,11 @@
-function walk(curr: BinaryNode<number> | null, path: number[]): number[] {
-  if (!curr) {
+function walk(node: BinaryNode<number> | null, path: number[]): number[] {
+  if (!node) {
     return path;
   }
 
-  // Post order
-  walk(curr.left, path);
-  walk(curr.right, path);
-  path.push(curr.value);
+  walk(node.left, path);
+  walk(node.right, path);
+  path.push(node.value);
 
   return path;
 }
