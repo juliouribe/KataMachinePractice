@@ -33,7 +33,7 @@ export default class MinHeap {
     }
     insert(value: number): void {
         this.length++;
-        this.data[this.length - 1] = value;
+        this.data.push(value);
         this.heapifyUp(this.length - 1);
     }
     delete(): number | undefined {
@@ -47,9 +47,6 @@ export default class MinHeap {
             return out;
         }
         this.data[0] = this.data[this.length];
-        // since we decrease the length, the last value doesn't technically exist.
-        // Next time we add we'll just replace the last value since this.length
-        // is acting as a pointer.
         this.heapifyDown(0);
         return out;
     }
