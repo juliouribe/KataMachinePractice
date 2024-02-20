@@ -18,7 +18,7 @@ function walk(maze: string[], wall: string, curr: Point, end: Point, seen: boole
     path.push(curr);
     return true;
   }
-
+ 
   // pre
   seen[curr.y][curr.x] = true;
   path.push(curr);

@@ -32,13 +32,18 @@ export default class MinHeap {
         this.data = [];
     }
     insert(value: number): void {
+        /*
+        Insert the new value at the end of the array list using length. Then heapifyUp.
+        Increment count.
+        */
         this.length++;
         this.data.push(value);
         this.heapifyUp(this.length - 1);
     }
     delete(): number | undefined {
+        // Also known as poll, pop, or whatever. Remove the smallest value which is the head.
         if (this.length === 0) {
-            return undefined;
+            throw undefined;
         }
         const out = this.data[0];
         this.length--;
@@ -49,55 +54,54 @@ export default class MinHeap {
         this.data[0] = this.data[this.length];
         this.heapifyDown(0);
         return out;
+
     }
     private heapifyDown(idx: number): void {
-        // Get child idx's.
+        // Look at current node, get children idxs, check if we're larger than any child
+        // swap if larger and heapifyDown using the child idx as the new starting point.
+        // If we're at the end of our heap data, then return.
         const leftIdx = this.leftChild(idx);
         const rightIdx = this.rightChild(idx);
-        // Once we reach the end of the array/heap with either idx or left idx we return.
         if (idx >= this.length || leftIdx >= this.length) {
-            return;
+            return
         }
+        const value = this.data[idx];
         const leftValue = this.data[leftIdx];
         const rightValue = this.data[rightIdx];
-        const currValue = this.data[idx];
-
-        if (leftValue > rightValue && currValue > rightValue) {
-            this.swap(idx, rightIdx);
-            this.heapifyDown(rightIdx);
-        } else if (rightValue > leftValue && currValue > leftValue) {
+        if (rightValue > leftValue && value > leftValue) {
             this.swap(idx, leftIdx);
             this.heapifyDown(leftIdx);
+        } else if (leftValue > rightValue && value > rightValue) {
+            this.swap(idx, rightIdx);
+            this.heapifyDown(rightIdx);
         }
-
     }
     private heapifyUp(idx: number): void {
+        // If we're at the root we're done.
         if (idx === 0) {
             return;
         }
-        // Given an idx, am I smaller than my parent?
-        // If yes, swap. If not, we're done
+        // Otherwise parent idx must exist and we can check if we need to swap.
         const parentIdx = this.parent(idx);
-        if (this.data[parentIdx] > this.data[idx]) {
-            // Swap and keep going until we're not smaller.
+        if (this.data[idx] < this.data[parentIdx]) {
             this.swap(idx, parentIdx);
             this.heapifyUp(parentIdx);
         }
     }
     private swap(a: number, b: number): void {
-        // A and B are indexes.
-        const tmp = this.data[a];
+        const temp = this.data[a];
         this.data[a] = this.data[b];
-        this.data[b] = tmp;
+        this.data[b] = temp;
     }
     private parent(idx: number): number {
         return Math.floor((idx - 1) / 2);
     }
     private leftChild(idx: number): number {
+        // 2i + 1.
         return (2 * idx + 1);
     }
     private rightChild(idx: number): number {
+        // 2i + 2.
         return (2 * idx + 2);
     }
-
 }

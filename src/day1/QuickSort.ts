@@ -14,7 +14,9 @@ function partition(arr: number[], lo: number, hi: number): number {
   const pivot = arr[hi];
   let idx = lo - 1;
   for (let i = lo; i < hi; i++) {
-    // If an element is smaller than the pivot, move it to the left of the pivot
+    // If an element is smaller than the pivot, move it to the left of the pivot.
+    // And by to the left we mean as far left as possible using another pointer
+    // to track where the end of the smaller numbers are.
     if (arr[i] < pivot) {
       idx++;
       const tmp = arr[i];

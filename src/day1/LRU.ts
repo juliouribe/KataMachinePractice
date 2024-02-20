@@ -69,17 +69,18 @@ export default class LRU<K, V> {
         if (this.tail === node) {
             this.tail = this.tail.prev;
         }
-
-
+        // Not necessary in TS but useful in languages like Java to free up memory.
         node.next = undefined;
         node.prev = undefined;
     }
 
     private prepend(node: Node<V>): void {
+        // If this is the first item in the LRU, make it the head and tail.
         if (!this.head) {
             this.head = this.tail = node;
             return;
         }
+        // Otherwise bump the current node at head down one.
         node.next = this.head;
         this.head.prev = node;
         this.head = node;
