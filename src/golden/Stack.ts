@@ -1,5 +1,5 @@
 type Node<T> = {
-    val: T;
+    value: T;
     next?: Node<T>;
 };
 
@@ -13,7 +13,7 @@ export default class Stack<T> {
     }
 
     push(item: T): void {
-        const node = { val: item } as Node<T>;
+        const node = { value: item } as Node<T>;
         this.length++;
         if (!this.head) {
             this.head = node;
@@ -29,10 +29,9 @@ export default class Stack<T> {
         this.length--;
         const node = this.head;
         this.head = node.next;
-        return node.val;
+        return node.value;
     }
-
     peek(): T | undefined {
-        return this.head?.val;
+        return this.head?.value;
     }
 }
