@@ -1,7 +1,7 @@
 type Node<T> = {
-    val?: T,
-    next: Node<T>
-}
+    val: T;
+    next?: Node<T>;
+};
 
 export default class Queue<T> {
     public length: number;
@@ -13,8 +13,9 @@ export default class Queue<T> {
         this.length = 0;
     }
     enqueue(item: T): void {
+        this.length++;
         const node = { val: item } as Node<T>;
-        this.length++
+
         if (!this.tail) {
             this.head = this.tail = node;
             return;
@@ -37,6 +38,6 @@ export default class Queue<T> {
         return node.val;
     }
     peek(): T | undefined {
-        return this.head?.val
+        return this.head?.val;
     }
 }
