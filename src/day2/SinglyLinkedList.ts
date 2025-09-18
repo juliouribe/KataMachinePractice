@@ -45,13 +45,13 @@ export default class SinglyLinkedList<T> {
     }
     append(item: T): void {
         const node = { val: item } as Node<T>;
+        this.length++;
         if (!this.tail) {
             this.tail = this.head = node;
             return;
         }
         this.tail.next = node;
         this.tail = node;
-        this.length++;
     }
     remove(item: T): T | undefined {
         // iterate through until we find a node with value and remove it
